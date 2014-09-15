@@ -4,8 +4,6 @@
     <meta name="description" content="dashboard">
     <title>Dashboard</title>
 
-<link rel="shortcut icon" href="http://s3-ap-southeast-1.amazonaws.com/keeeweee.asset/logo/logo.png"
-      type="image/x-icon">
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="http://v3.bootcss.com/examples/dashboard/dashboard.css">
@@ -81,7 +79,7 @@
     }
 </script>
 
-    <!-- Google Map 必须放在@links()之前 -->
+    <!-- Google Map -->
     <script src="http://www.google.cn/maps?file=api&v=2&key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA&hl=zh-CN"></script>
     <script type="text/javascript">
 
