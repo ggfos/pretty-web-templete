@@ -1,0 +1,160 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="dashboard">
+    <title>Dashboard</title>
+    
+<link rel="shortcut icon" href="http://s3-ap-southeast-1.amazonaws.com/keeeweee.asset/logo/logo.png"
+      type="image/x-icon">
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="http://v3.bootcss.com/examples/dashboard/dashboard.css">
+<link rel="stylesheet"
+      href="http://timschlechter.github.io/bootstrap-tagsinput/examples/lib/bootstrap-tagsinput/bootstrap-tagsinput.css">
+<link rel="stylesheet"
+      href="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/css/datetimepicker.css">
+
+
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://v3.bootcss.com/assets/js/docs.min.js"></script>
+<script src="http://v3.bootcss.com/assets/js/ie-emulation-modes-warning.js"></script>
+<script src="http://v3.bootcss.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="http://cdn.bootcss.com/headroom/0.5.0/headroom.js"></script>
+<script src="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="http://timschlechter.github.io/bootstrap-tagsinput/examples/lib/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<style type="text/css">
+    .input-group {
+        margin-bottom: 1px;
+    }
+</style>
+<script>
+    Date.prototype.format = function (fmt) {// author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, // 月份
+            "d+": this.getDate(), // 日
+            "h+": this.getHours(), // 小时
+            "m+": this.getMinutes(), // 分
+            "s+": this.getSeconds(), // 秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
+            "S": this.getMilliseconds() // 毫秒
+        };
+        if (/(y+)/.test(fmt))
+            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt))
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    function checkBroswer() {
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var s;
+        var scan;
+        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+                (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+                        (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+                                (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+                                        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+
+//以下进行测试
+
+        if (Sys.ie) {
+            scan = "您使用的ie内核" + Sys.ie + "浏览器";
+        }
+        if (Sys.firefox) {
+            scan = "您使用的是firefox内核" + Sys.firefox + "浏览器，如果有问题，建议您使用ie浏览器";
+        }
+        if (Sys.chrome) {
+            scan = "您使用的是chrome内核" + Sys.chrome + "浏览器，如果有问题，建议您使用ie浏览器";
+        }
+        if (Sys.opera) {
+            scan = "您使用的是opera内核" + Sys.opera + "浏览器，如果有问题，建议您使用ie浏览器";
+        }
+        if (Sys.safari) {
+            scan = "您使用的是safari内核" + Sys.safari + "浏览器，如果有问题，建议您使用ie浏览器";
+        }
+        alert(scan)
+    }
+</script>
+
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top headroom headroom--unpinned" role="navigation">
+    <div class="navbar navbar-inverse navbar-fixed-top headroom headroom--unpinned" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/events/dashboard">Dashboard</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/events/login">Login</a></li>
+                <li><a href="/events/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            	<ul class="nav nav-sidebar">
+		    <li class="active"><a href="/events/dashboard">Welcome</a></li>
+		    <li><a href="/events/list">Events</a></li>
+		    <li><a href="/events/new">Add Event</a></li>
+		</ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header">Exhibitors</h2>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>logo</th>
+                        <th>name</th>
+                        <th width="25%">description</th>
+                        <th>location</th>
+                        <th>category</th>
+                        <th>website</th>
+                        <th>createTime</th>
+                        <th width="10%">settings</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for(exhibitor <- exhibitors) {
+                    <tr>
+                        <td><img width="40px" height="40px" class="img-circle" src="@exhibitor.logo"></td>
+                        <td>@exhibitor.name</td>
+                        <td>@exhibitor.desc</td>
+                        <td>@exhibitor.location</td>
+                        <td>@exhibitor.category</td>
+                        <td><a href="@exhibitor.website">website</a></td>
+                        <td>@{new Date(exhibitor.createTime)}</td>
+                        <td>
+                            <a href="/events/exhibitor/members?exhibitorId=@exhibitor._id" title="view members">
+                                <span class="glyphicon glyphicon-user"></span></a>&nbsp;&nbsp;|&nbsp;
+                            <a href="/events/exhibitor/update?eventId=@eventId&exhibitorId=@exhibitor._id"
+                               title="edit"> <span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;|&nbsp;
+                            <a href="/events/exhibitor/delete?eventId=@eventId&exhibitorId=@exhibitor._id"
+                               title="delete"> <span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                    }
+                    <tr>
+                        <td colspan="7">
+                            <a href="/events/exhibitor/new?eventId=@eventId" class="btn btn-lg btn-block" role="button">
+                                <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add New Exhibitor</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

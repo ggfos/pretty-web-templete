@@ -1,0 +1,125 @@
+@import com.joyrec.notebook2.entity._
+@import com.keeeweee.event.html._
+@import com.joyrec.util.date.DateFormat
+@(events:  Iterable[EventInfo])
+@displayroles(roles : List[(String,Int)])=@{
+roles.map(_._1).mkString(",")
+}
+@shortDesc(desc:String) =@{
+if(desc.length >= 25 )
+desc.substring(0,16)+"..."
+else
+desc
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="dashboard">
+    <title>KeeeWeee Dashboard</title>
+    @links()
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top headroom headroom--unpinned" role="navigation">
+    <div class="navbar navbar-inverse navbar-fixed-top headroom headroom--unpinned" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/events/dashboard">Dashboard</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/events/login">Login</a></li>
+                <li><a href="/events/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+           	<ul class="nav nav-sidebar">
+		    <li class="active"><a href="/events/dashboard">Welcome</a></li>
+		    <li><a href="/events/list">Events</a></li>
+		    <li><a href="/events/new">Add Event</a></li>
+		</ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header">KeeeWeee Events List</h2>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>creator</th>
+                        <th>pier</th>
+                        <th>location</th>
+                        <th>diatance</th>
+                        <!-- <th>roles</th>-->
+                        <th>description</th>
+                        <th>startTime</th>
+                        <th>endTime</th>
+                        <th>createTime</th>
+                        <th width="12%">settings</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for(event <- events) {
+                    <tr>
+                        <td>@event.name</td>
+                        <td>@event.creator</td>
+                        <td>@event.pier</td>
+                        <td>@event.loc</td>
+                        <td>@event.distance</td>
+                        <!-- <td>
+                             @displayroles(event.roles)
+                         </td>-->
+                        <td>@shortDesc(event.desc)</td>
+                        <td>@{DateFormat.getTime(event.startTime,"yyyy-MM-dd")}</td>
+                        <td>@{DateFormat.getTime(event.endTime,"yyyy-MM-dd")}</td>
+                        <td>@{DateFormat.getTime(event.createTime,"yyyy-MM-dd")}</td>
+                        <td width="12%">
+                            @if(event.active == 0){
+                            <a href="/events/active?eventId=@event._id&typz=1" title="online">
+                                <span class="glyphicon glyphicon-play"></span>
+                            </a>
+                            <a href="/events/delete?eventId=@event._id" title="delete event">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                            }else{
+                            <a href="/events/active?eventId=@event._id&typz=0" title="offline">
+                                <span class="glyphicon glyphicon-off"></span>
+                            </a>
+                            }
+                            <a href="/events/edit?eventId=@event._id" title="edit event">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href="/events/exhibitor/list?eventId=@event._id" title="list exhibitors">
+                                <span class="glyphicon glyphicon-th-list"></span>
+                            </a>
+                            <a href="/events/exhibitor/new?eventId=@event._id" title="add exhibitor">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                            <a href="/events/participants/list?eventId=@event._id" title="view participants">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
+                            <a href="/events/details/?eventId=@event._id" title="view details">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                    <tr>
+                        <td colspan="10">
+                            <a href="/events/new" class="btn btn-lg btn-block" role="button">
+                                <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Create New Event</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
